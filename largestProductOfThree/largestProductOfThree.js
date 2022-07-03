@@ -1,26 +1,29 @@
 const largestProductOfThree = function (arr) {
   // TODO: 배열의 요소 중 3개를 곱했을 때 가장 큰 경우를 구한다.
   // 배열의 3의 순열을 구하는 알고리즘을 사용한다.
-  let array = []
-  function swap(arr, i, j) {
-    [arr[i], arr[j]] = [arr[j], arr[i]]
-  }
-  function perm(arr, depth, n, k) {
-    if (depth == k) {
-      array.push(arr.slice())
-      return;
+  function getPermutation(arr, r, tmp, result, isUsed) {
+    if( tmp.length === r ) {
+      result.push(tmp.slice());
+      return result;
     }
-    
-    for(let i = depth; i < n; i++) {
-        swap(arr, i, depth);				
-        perm(arr, depth+1, n, k); 		 
-        swap(arr, i, depth);
+    for(let i=0; i<arr.length; i++) {
+      if(isUsed.has(i)) continue;
+      isUsed.add(i);
+      tmp.push(arr[i]);
+      getPermutation(arr, r, tmp, result, isUsed);
+      tmp.pop();
+      isUsed.delete(i);
+    }
+    return result;
+  }
+  // 순열을 구하고 순회하면서 세 요소를 곱한 값중 제일 큰 요소만 max 변수에 할당되게 한다.
+  let result = getPermutation(arr, 3, [], [], new Set())
+  let max = result[0][0] * result[0][1] * result[0][2];
+  for (let i = 0; i < result.length; i++) {
+    let squr = result[i][0] * result[i][1] * result[i][2]
+    if (max < squr) {
+      max = squr
     }
   }
-  perm(arr, 0, arr.length, 3)
-  return array
-};
-
-// swap을 사용한 permutation 알고리즘을 사용함.
-// 갯수를 제한해서 사용하는 방법을 활용하기 어려움
-// dfs를 시도해봐야 할것 같음
+  return max;
+}
