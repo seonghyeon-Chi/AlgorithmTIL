@@ -4,12 +4,10 @@ function power(base, exponent) {
   if (exponent === 0) {
     return 1
   } else if (exponent % 2 === 0) {
-    return power(base, exponent/2) * power(base, exponent/2)
+    return (power(base, exponent/2) * power(base, exponent/2)) % 94906249
   } else {
-    return base * power(base, (exponent-1)/2) * power(base, (exponent-1)/2)
+    return (base * power(base, (exponent-1)/2) * power(base, (exponent-1)/2)) % 94906249
   }
 }
 
-
-// 수가 94,906,249가 넘는 경우는 제대로 된 정답이 나오지 않는다
-// 결과를 94,906,249로 나누는 것이 아니라 94,906,249보다 넘는 경우에 나눠서 연산을 이어가야 한다.
+// 아직 통과되지 않음 좀 더 효율적인 알고리즘을 찾아야 함
