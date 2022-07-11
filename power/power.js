@@ -3,11 +3,14 @@ function power(base, exponent) {
   // 시간 복잡도를 위해 분할 정복을 사용한다
   if (exponent === 0) {
     return 1
-  } else if (exponent % 2 === 0) {
-    return (power(base, exponent/2) * power(base, exponent/2)) % 94906249
+  } 
+  let half = Math.floor(exponent / 2)
+  let temp = power(base, half)
+  let result = (temp * temp) % 94906249
+
+  if (exponent % 2 === 1) {
+    return result * base % 94906249
   } else {
-    return (base * power(base, (exponent-1)/2) * power(base, (exponent-1)/2)) % 94906249
+    return result
   }
 }
-
-// 아직 통과되지 않음 좀 더 효율적인 알고리즘을 찾아야 함
