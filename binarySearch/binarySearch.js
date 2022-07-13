@@ -3,5 +3,17 @@ const binarySearch = function (arr, target) {
   // X가 중간 값보다 작으면 중간 값을 기준으로 좌측의 데이터들을 대상으로
   // X가 중간값보다 크면 배열의 우측을 대상으로 다시 탐색한다.
   // 해당 값을 찾을 때까지 이 과정을 반복한다.
+  let half = Math.floor(arr.length / 2)
 
+  if (arr[half] === target) {
+    return half
+  } else {
+    if (target < arr[half]) {
+      return binarySearch(arr.slice(0,half), target)
+    } else {
+      return binarySearch(arr.slice(half+1), target)
+    }
+  }
 };
+
+// target이 배열에 없는 경우를 계산하지 못함
