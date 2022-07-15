@@ -5,6 +5,9 @@ const binarySearch = function (arr, target) {
   // 해당 값을 찾을 때까지 이 과정을 반복한다.
   let index = 0;
   function search (arr, target) {
+    if (arr.length === 0) {
+      return -1
+    }
     let half = Math.floor(arr.length / 2)
     if (arr[half] === target) {
       index += half
@@ -13,7 +16,7 @@ const binarySearch = function (arr, target) {
       if (target < arr[half]) {
         return search(arr.slice(0,half), target)
       } else {
-        index += arr.slice(half+1).length
+        index += arr.slice(0,half+1).length
         return search(arr.slice(half+1), target)
       }
     }
@@ -21,4 +24,4 @@ const binarySearch = function (arr, target) {
   return search(arr, target)
 };
 
-// index를 구하기 위해 크거나 작을 때의 값을 찾아야 하지만 재귀 안에서 이전 값을 유지하며 index의 위치를 결정하는 것이 잘 안됨.
+// console에서는 문제 없이 작동되나 테스트에서는 통과되지 않음
